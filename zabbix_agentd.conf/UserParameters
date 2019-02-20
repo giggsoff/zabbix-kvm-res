@@ -8,5 +8,7 @@ UserParameter=custom.kvm.net.uuid[*],/usr/local/bin/zabbix-kvm-res.py --resource
 UserParameter=custom.kvm.domain.discover,/usr/local/bin/zabbix-kvm-res.py --resource domain --action list
 UserParameter=custom.kvm.domain.active[*],/usr/local/bin/zabbix-kvm-res.py --resource domain --action active --domain $1
 UserParameter=custom.kvm.domain.uuid[*],/usr/local/bin/zabbix-kvm-res.py --resource domain --action UUID --domain $1
+UserParameter=custom.kvm.domain.name[*],/usr/local/bin/zabbix-kvm-res.py --resource domain --action name --domain $1
+UserParameter=custom.kvm.domain.project[*],/usr/local/bin/zabbix-kvm-res.py --resource domain --action project --domain $1
 UserParameter=custom.kvm.domain.bin[*],/usr/local/bin/zabbix-kvm-res.py --resource domain --action BIN --domain $1
 UserParameter=custom.kvm.domain.bout[*],/usr/local/bin/zabbix-kvm-res.py --resource domain --action BOUT --domain $1

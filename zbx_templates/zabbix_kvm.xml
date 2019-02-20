@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2019-02-20T14:05:31Z</date>
+    <date>2019-02-20T14:13:54Z</date>
     <groups>
         <group>
             <name>KVM</name>
@@ -45,7 +45,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>custom.kvm.domain.discover</key>
-                    <delay>3600</delay>
+                    <delay>300</delay>
                     <status>0</status>
                     <allowed_hosts/>
                     <snmpv3_contextname/>
@@ -265,7 +265,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>custom.kvm.net.discover</key>
-                    <delay>3600</delay>
+                    <delay>300</delay>
                     <status>0</status>
                     <allowed_hosts/>
                     <snmpv3_contextname/>
@@ -401,7 +401,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>custom.kvm.pool.discover</key>
-                    <delay>3600</delay>
+                    <delay>300</delay>
                     <status>0</status>
                     <allowed_hosts/>
                     <snmpv3_contextname/>

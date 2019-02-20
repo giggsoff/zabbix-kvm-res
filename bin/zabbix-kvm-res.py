@@ -15,6 +15,7 @@ uri = 'qemu:///system'
 
 def main():
     options = parse_args()
+    r = ''
     if options.resource == "pool":
         if options.action == "list":
             r = pool_list(options)
@@ -42,9 +43,12 @@ def main():
             r = domain_isActive(options)
         elif options.action == "UUID":
             r = domain_uuid(options)
+        elif options.action == "name":
+            r = domain_name(options)
+        elif options.action == "project":
+            r = domain_project(options)
         elif options.action == "BIN" or options.action == "BOUT":
             r = domain_net(options)
-
     print r
 
 
@@ -109,6 +113,22 @@ def domain_net(options):
     except libvirt.libvirtError:
         pass
     return result
+
+
+def domain_name(options):
+    conn = kvm_connect()
+    domain = conn.lookupByName(options.domain)
+    tree = ElementTree.fromstring(domain.XMLDesc(0))
+    for name in tree.find("metadata/nova:instance/nova:name"):
+        return name
+
+
+def domain_project(options):
+    conn = kvm_connect()
+    domain = conn.lookupByName(options.domain)
+    tree = ElementTree.fromstring(domain.XMLDesc(0))
+    for project in tree.find("metadata/nova:instance/nova:owner/nova:project"):
+        return project
 
 
 def net_list(options):
@@ -225,7 +245,7 @@ def parse_args():
         if options.action not in net_valid_actions:
             parser.error("Action hass to be one of: " + ", ".join(net_valid_actions))
     elif options.resource == "domain":
-        domain_valid_actions = ['list', 'active', 'UUID', 'BIN', 'BOUT']
+        domain_valid_actions = ['list', 'active', 'UUID', 'BIN', 'BOUT', 'name', 'project']
         if options.action not in domain_valid_actions:
             parser.error("Action hass to be one of: " + ", ".join(domain_valid_actions))
 
