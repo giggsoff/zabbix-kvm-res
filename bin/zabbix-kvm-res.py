@@ -115,20 +115,33 @@ def domain_net(options):
     return result
 
 
+ns = {'nova': 'http://openstack.org/xmlns/libvirt/nova/1.0'}
+
 def domain_name(options):
     conn = kvm_connect()
     domain = conn.lookupByName(options.domain)
     tree = ElementTree.fromstring(domain.XMLDesc(0))
-    for name in tree.find("metadata/nova:instance/nova:name"):
-        return name
+    try:
+        for metadata in tree.findall("metadata"):
+            for instance in metadata.find("nova:instance", ns):
+                if instance.tag == '{'+ns['nova']+'}name':
+                    return instance.text
+    except:
+        pass
+    return None
 
 
 def domain_project(options):
     conn = kvm_connect()
     domain = conn.lookupByName(options.domain)
     tree = ElementTree.fromstring(domain.XMLDesc(0))
-    for project in tree.find("metadata/nova:instance/nova:owner/nova:project"):
-        return project
+    try:
+        for project in tree.find("metadata/nova:instance/nova:owner", ns):
+            if project.tag == '{'+ns['nova']+'}project':
+                return project.text
+    except:
+        pass
+    return None
 
 
 def net_list(options):
